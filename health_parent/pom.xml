@@ -33,6 +33,7 @@
         <jedis.version>2.9.0</jedis.version>
         <spring.security.version>5.1.9.RELEASE</spring.security.version>
         <servlet-api.version>2.5</servlet-api.version>
+        <lombok.version>1.18.24</lombok.version>
 
     </properties>
 
@@ -232,6 +233,11 @@
                 <groupId>xml-apis</groupId>
                 <artifactId>xml-apis</artifactId>
                 <version>1.4.01</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
