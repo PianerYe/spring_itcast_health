@@ -4,6 +4,7 @@
 
 <web-app>
     <display-name>Archetype Created Web Application</display-name>
+
     <!-- 加载spring容器 -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
