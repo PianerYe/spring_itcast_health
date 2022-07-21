@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * 检查项服务
  * */
-@Service
+@Service(interfaceClass = CheckItemService.class)
 @Transactional
 public class CheckItemServiceImpl implements CheckItemService {
     //注入dao对象

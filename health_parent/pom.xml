@@ -18,7 +18,7 @@
     <!--集中定义依赖版本号-->
     <properties>
         <spring.version>5.1.9.RELEASE</spring.version>
-        <dubbo.version>2.6.12</dubbo.version>
+        <dubbo.version>2.5.9</dubbo.version>
         <zookeeper.version>3.5.7</zookeeper.version>
         <zkclient.version>0.1</zkclient.version>
         <pagehelper.version>5.1.2</pagehelper.version>
@@ -34,6 +34,7 @@
         <spring.security.version>5.1.9.RELEASE</spring.security.version>
         <servlet-api.version>2.5</servlet-api.version>
         <lombok.version>1.18.24</lombok.version>
+        <slf4j-log4j12.version>1.7.2</slf4j-log4j12.version>
 
     </properties>
 
@@ -238,6 +239,11 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${slf4j-log4j12.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
