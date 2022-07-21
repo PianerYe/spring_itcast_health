@@ -28,7 +28,6 @@ public class CheckItemController {
             //服务调用失败
             return new Result(false, MessageConstant.ADD_CHECKITEM_FAIL);
         }
-
         return new Result(true,MessageConstant.ADD_CHECKITEM_SUCCESS);
     }
 }
