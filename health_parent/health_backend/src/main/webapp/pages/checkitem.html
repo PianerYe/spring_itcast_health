@@ -269,7 +269,7 @@
                         pageSize: this.pagination.pageSize,
                         queryString: this.pagination.queryString
                     }
-                    axios.post("/checkitem/pageQuery.do",parm).then((res)=>{
+                    axios.post("/checkitem/findPage.do",parm).then((res)=>{
                         //解析Controller响应回的数据，为模型数据赋值
                         this.pagination.total =res.data.total;
                         this.dataList = res.data.rows;
@@ -289,6 +289,10 @@
                 },
                 //切换页码
                 handleCurrentChange(currentPage) {
+                    //设置最新的页码
+                    this.pagination.currentPage = currentPage;
+                    //重新调用findPage方法进行查询
+                    this.findPage();
                 },
                 // 删除
                 handleDelete(row) {
