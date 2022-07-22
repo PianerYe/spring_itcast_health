@@ -263,7 +263,11 @@
                 },
                 //分页查询
                 findPage() {
-                //发送ajax请求，提交分页相关请求参数（页码、每页显示记录数、查询条件）
+                    //先做this.pagination.queryString 是否非空判断。
+                    if (this.pagination.queryString != null && this.pagination.queryString.length >0){
+                        this.pagination.currentPage = 1;
+                    }
+                   //发送ajax请求，提交分页相关请求参数（页码、每页显示记录数、查询条件）
                     var parm = {
                         currentPage: this.pagination.currentPage,
                         pageSize: this.pagination.pageSize,
