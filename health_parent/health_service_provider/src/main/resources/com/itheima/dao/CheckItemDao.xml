@@ -15,4 +15,13 @@
             where code = #{value} or name = #{value }
         </if>
     </select>
+
+    <!--根据检查项ID来统计数据量-->
+    <select id="findCountByCheckItemId" parameterType="Integer" resultType="Long">
+        select count (*) from t_checkgroup_checkitem where checkitem_id = #{checkitem_id}
+    </select>
+
+    <delete id="deleteById" parameterType="Integer">
+        delete * from t_checkitem where id = #{id}
+    </delete>
 </mapper>
