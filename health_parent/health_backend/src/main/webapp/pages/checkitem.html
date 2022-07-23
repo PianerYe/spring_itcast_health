@@ -290,6 +290,18 @@
                 },
                 // 弹出编辑窗口
                 handleUpdate(row) {
+                    //弹出编辑窗口
+                    this.dialogFormVisible4Edit = true;
+                    //回显数据
+                    axios.get("checkitem/findById.do?id=" + row.id).then((res)=>{
+                        if (res.data.flag){
+                            //进行回显 基于VUE的数据绑定来实现
+                            this.formData = res.data.data;
+                        }else {
+                            //查询失败，弹出提示
+                            this.$message.error(res.data.message);
+                        }
+                    });
                 },
                 //切换页码
                 handleCurrentChange(currentPage) {
