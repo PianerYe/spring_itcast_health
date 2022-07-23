@@ -4,6 +4,7 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.dubbo.container.page.PageHandler;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.itheima.constant.MessageConstant;
 import com.itheima.dao.CheckItemDao;
 import com.itheima.entity.PageResult;
 import com.itheima.entity.QueryPageBean;
@@ -51,7 +52,7 @@ public class CheckItemServiceImpl implements CheckItemService {
         long count = checkItemDao.findCountByCheckItemId(id);
         if (count>0){
             //当前检查项已经关联到检查组，不允许删除
-            new RuntimeException();
+            throw new RuntimeException(MessageConstant.DELETE_CHECKITEM_FAIL);
         }else {
             checkItemDao.deleteById(id);
         }
