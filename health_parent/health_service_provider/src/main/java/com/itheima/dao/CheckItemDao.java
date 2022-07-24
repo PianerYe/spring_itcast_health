@@ -9,4 +9,7 @@ public interface CheckItemDao {
     public Page<CheckItem> selectByCondition(String queryString);
     public long findCountByCheckItemId(Integer id);
     public void deleteById(Integer id);
+    public void edit(CheckItem checkItem);
+
+    public CheckItem findById(Integer id);
 }

@@ -52,4 +52,31 @@ public class CheckItemController {
         }
         return new Result(true,MessageConstant.DELETE_CHECKITEM_SUCCESS);
     }
+
+    //编辑检查项
+    @RequestMapping("/edit")
+    public Result edit(@RequestBody CheckItem checkItem){
+        try {
+            checkItemService.edit(checkItem);
+        }catch (Exception e){
+            e.printStackTrace();
+            //服务调用失败
+            return new Result(false, MessageConstant.EDIT_CHECKITEM_FAIL);
+        }
+        return new Result(true,MessageConstant.EDIT_CHECKGROUP_SUCCESS);
+    }
+
+    //根据ID查询数据回显
+    @RequestMapping("findById")
+    public Result findById(Integer id){
+        try {
+            System.out.println("123aaaaaaaaaaaaaaaaaa");
+            CheckItem checkItem = checkItemService.findById(id);
+            return new Result(true,MessageConstant.QUERY_CHECKITEM_SUCCESS,checkItem);
+        }catch (Exception e){
+            e.printStackTrace();
+            //服务调用失败
+            return new Result(false, MessageConstant.QUERY_CHECKITEM_FAIL);
+        }
+    }
 }
