@@ -18,4 +18,11 @@
             values
                 (#{checkgroupId},#{checkitemId})
    </insert>
+
+    <select id="selectByCondition" parameterType="String" resultType="com.itheima.pojo.CheckGroup">
+        select * from t_checkgroup
+        <if test="value != null and value.length > 0">
+            where code = #{value} or name = #{value} or helpCode = #{value}
+        </if>
+    </select>
 </mapper>

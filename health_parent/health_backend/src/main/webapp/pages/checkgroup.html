@@ -311,6 +311,21 @@
                 },
                 //分页查询
                 findPage() {
+                    //先做this.pagination.queryString 是否非空判断。 用于查询的时候重置limit初始值为0开始
+                    if (this.pagination.queryString != null && this.pagination.queryString.length >0){
+                        this.pagination.currentPage = 1;
+                    }
+                    //发送ajax请求，提交分页相关请求参数（页码、每页显示记录数、查询条件）
+                    var parm = {
+                        currentPage: this.pagination.currentPage,
+                        pageSize: this.pagination.pageSize,
+                        queryString: this.pagination.queryString
+                    }
+                    axios.post("/checkgroup/findPage.do",parm).then((res)=>{
+                        //解析Controller响应回的数据，为模型数据赋值
+                        this.pagination.total = res.data.total;
+                        this.dataList = res.data.rows;
+                    })
                 },
                 // 重置表单
                 resetForm() {
