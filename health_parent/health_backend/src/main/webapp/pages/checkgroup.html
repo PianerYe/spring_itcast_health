@@ -360,6 +360,39 @@
                 },
                 // 弹出编辑窗口
                 handleUpdate(row) {
+                    //弹出编辑窗口
+                    this.dialogFormVisible4Edit = true;
+                    this.activeName = 'first';//默认选中first对应的tab
+                    //数据回显
+                    axios.get("/checkgroup/findById.do?id=" + row.id).then((res)=>{
+                        if (res.data.flag){
+                            //进行回显 基于VUE的数据绑定来实现
+                            this.formData = res.data.data;
+                        }else {
+                            //查询失败，弹出提示
+                            this.$message.error(res.data.message)
+                        }
+                    })
+                    //发送ajax请求,查询所有的检查项数据，用于展示检查项列表
+                   axios.get("/checkitem/findAll.do").then((res)=>{
+                       if (res.data.flag){
+                           //查询检查项数据成功
+                           this.tableData = res.data.data;
+                           // 发送ajax请求，根据检查组ID查询当前检查组包含的检查项ID,用于页面复选框回显
+                            axios.get("/checkgroup/findCheckItemIdsByCheckGroupId.do?id=" + row.id).then((res)=>{
+                                // this.checkitemIds = [30,31,32];
+                                if (res.data.flag){
+                                    this.checkitemIds = res.data.data;
+                                }else {
+                                    this.$message.error(res.data.message);
+                                }
+
+                            });
+                       }else {
+                           //查询检查项数据失败
+                           this.$message.error(res.data.message);
+                       }
+                   })
                 },
                 //切换页码
                 handleCurrentChange(currentPage) {

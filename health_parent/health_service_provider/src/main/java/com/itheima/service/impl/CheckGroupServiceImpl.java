@@ -54,4 +54,16 @@ public class CheckGroupServiceImpl implements CheckGroupService {
         List<CheckGroup> rows = page.getResult();
         return new PageResult(total,rows);
     }
+
+    //根据ID查询检查组
+    @Override
+    public CheckGroup findById(Integer id) {
+        return checkGroupDao.findById(id);
+    }
+
+    //根据检查组ID查询关联的检查项ID
+    @Override
+    public List<Integer> findCheckItemIdsByCheckGroupId(Integer id) {
+        return checkGroupDao.findCheckItemIdsByCheckGroupId(id);
+    }
 }

@@ -69,7 +69,7 @@ public class CheckItemController {
     }
 
     //根据ID查询数据回显
-    @RequestMapping("findById")
+    @RequestMapping("/findById")
     public Result findById(Integer id){
         try {
             CheckItem checkItem = checkItemService.findById(id);
