@@ -31,6 +31,7 @@ public class CheckGroupController {
         return new Result(true,MessageConstant.ADD_CHECKGROUP_SUCCESS);//新增成功
     }
 
+    //检查组分页查询
     @RequestMapping("/findPage")
     public PageResult findPage(@RequestBody QueryPageBean queryPageBean){
         PageResult pageResult = checkGroupService.pageQuery(queryPageBean);

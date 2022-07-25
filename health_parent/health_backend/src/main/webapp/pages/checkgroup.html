@@ -92,7 +92,7 @@
                             <template>
                                 <el-tabs v-model="activeName" type="card">
                                     <el-tab-pane label="基本信息" name="first">
-                                        <el-form :model="formData" :rules="rules" label-position="right" label-width="100px">
+                                        <el-form ref="dataAddForm" :model="formData" :rules="rules" label-position="right" label-width="100px">
                                             <el-row>
                                                 <el-col :span="12">
                                                     <el-form-item label="编码" prop="code">
@@ -289,25 +289,34 @@
                 },
                 //添加
                 handleAdd () {
-                    // alert(this.checkitemIds);
-                    //发送ajax请求。将表单数据提交后台进行处理
-                    axios.post("/checkgroup/add.do?checkitemIds=" + this.checkitemIds,this.formData).then((res)=>{
-                        //关闭新增窗口
-                        this.dialogFormVisible = false;
-                        if (res.data.flag){
-                            //操作成功
-                            this.$message({
-                                type:'success',
-                                message:res.data.message
-                            })
-                        }else {
-                            //操作失败
-                            this.$message.error(res.data.message);
+                    //表单校验
+                    this.$refs['dataAddForm'].validate((valid)=>{
+                        if(valid){
+                            //表单校验通过
+                            // alert(this.checkitemIds);
+                            //发送ajax请求。将表单数据提交后台进行处理
+                            axios.post("/checkgroup/add.do?checkitemIds=" + this.checkitemIds,this.formData).then((res)=>{
+                                //关闭新增窗口
+                                this.dialogFormVisible = false;
+                                if (res.data.flag){
+                                    //操作成功
+                                    this.$message({
+                                        type:'success',
+                                        message:res.data.message
+                                    })
+                                }else {
+                                    //操作失败
+                                    this.$message.error(res.data.message);
+                                }
+                            }).finally(()=>{
+                                //重新进行分页查询
+                                this.findPage();
+                            })}else {
+                            //校验不通过
+                            this.$message.error("数据校验失败，请检查你的输入信息是否正确");
+                            return false;
                         }
-                    }).finally(()=>{
-                        //重新进行分页查询
-                        this.findPage();
-                    });
+                    })
                 },
                 //分页查询
                 findPage() {
@@ -354,6 +363,10 @@
                 },
                 //切换页码
                 handleCurrentChange(currentPage) {
+                    //设置最新的页码
+                    this.pagination.currentPage = currentPage;
+                    //重新调用findPage方法进行查询
+                    this.findPage();
                 },
                 // 删除
                 handleDelete(row) {

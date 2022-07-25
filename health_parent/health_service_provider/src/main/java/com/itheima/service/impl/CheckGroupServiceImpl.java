@@ -48,6 +48,7 @@ public class CheckGroupServiceImpl implements CheckGroupService {
         String queryString = queryPageBean.getQueryString();//查询条件
         //完成分页查询，基于mybatis框架提供的分页助手插件完成
         PageHelper.startPage(currentPage,pageSize);
+        //select * from t_checkgroup limit 0,10
         Page<CheckGroup> page = checkGroupDao.selectByCondition(queryString);
         long total = page.getTotal();
         List<CheckGroup> rows = page.getResult();
