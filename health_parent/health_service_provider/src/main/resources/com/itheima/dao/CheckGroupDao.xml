@@ -19,6 +19,7 @@
                 (#{checkgroupId},#{checkitemId})
    </insert>
 
+    <!--根据条件进行查询-->
     <select id="selectByCondition" parameterType="String" resultType="com.itheima.pojo.CheckGroup">
         select * from t_checkgroup
         <if test="value != null and value.length > 0">

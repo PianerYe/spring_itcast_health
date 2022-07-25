@@ -40,7 +40,7 @@ public class CheckGroupServiceImpl implements CheckGroupService {
             }
         }
     }
-
+    //检查组分页查询
     @Override
     public PageResult pageQuery(QueryPageBean queryPageBean) {
         Integer currentPage = queryPageBean.getCurrentPage();
