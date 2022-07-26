@@ -36,4 +36,44 @@
     <select id="findCheckItemIdsByCheckGroupId" parameterType="int" resultType="int">
         select checkitem_id from t_checkgroup_checkitem where checkgroup_id = #{id}
     </select>
+
+    <!--根据获取的ID修改检查组信息-->
+    <update id="edit" parameterType="com.itheima.pojo.CheckGroup">
+        update t_checkgroup
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="code != null">
+                code = #{code},
+            </if>
+            <if test="helpCode != null">
+                helpCode = #{helpCode},
+            </if>
+            <if test="attention != null">
+                attention = #{attention},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAssoication" parameterType="int">
+        delete from t_checkgroup_checkitem where checkgroup_id = #{id}
+    </delete>
+
+    <!--根据检查组ID来统计数据量-->
+    <select id="findCountByCheckGroupId" parameterType="int" resultType="long">
+        SELECT COUNT(*) FROM t_checkgroup_checkitem WHERE checkgroup_id = #{checkgroup_id}
+    </select>
+
+    <delete id="deleteById" parameterType="int">
+        delete from t_checkgroup where id = #{id}
+    </delete>
+
 </mapper>

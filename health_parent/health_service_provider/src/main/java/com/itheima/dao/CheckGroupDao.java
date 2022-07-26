@@ -13,4 +13,8 @@ public interface CheckGroupDao {
     public Page<CheckGroup> selectByCondition(String queryString);
     public CheckGroup findById(Integer id);
     public List<Integer> findCheckItemIdsByCheckGroupId(Integer id);
+    public void edit(CheckGroup checkGroup);
+    public void deleteAssoication(Integer id);
+    public long findCountByCheckGroupId(Integer id);
+    public void deleteById(Integer id);
 }

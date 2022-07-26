@@ -3,6 +3,7 @@ package com.itheima.service.impl;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.itheima.constant.MessageConstant;
 import com.itheima.dao.CheckGroupDao;
 import com.itheima.entity.PageResult;
 import com.itheima.entity.QueryPageBean;
@@ -65,5 +66,39 @@ public class CheckGroupServiceImpl implements CheckGroupService {
     @Override
     public List<Integer> findCheckItemIdsByCheckGroupId(Integer id) {
         return checkGroupDao.findCheckItemIdsByCheckGroupId(id);
+    }
+
+    //编辑检查组
+    @Override
+    public void edit(CheckGroup checkGroup, Integer[] checkitemIds) {
+        //编辑检查组，操作t_checkgroup表
+        checkGroupDao.edit(checkGroup);
+        Integer checkGroupId = checkGroup.getId();
+        //清除关系表
+        checkGroupDao.deleteAssoication(checkGroupId);
+        //设置检查组和检查项的多对多的关联关系，操作t_checkgroup_checkitem表
+        if (checkitemIds!=null && checkitemIds.length>0){
+            for (Integer checkitemid : checkitemIds){
+                Map<String,Integer> map = new HashMap<>();
+                map.put("checkgroupId",checkGroupId);
+                map.put("checkitemId",checkitemid);
+                checkGroupDao.setCheckGroupAndCheckItem(map);
+            }
+        }
+
+
+    }
+
+    //根据ID删除检查项
+    @Override
+    public void deleteById(Integer id) {
+        //判断当前检查项是否已经关联到检查组
+        long count = checkGroupDao.findCountByCheckGroupId(id);
+        if (count>0){
+            //当前检查项已经关联到检查组，不允许删除
+            throw new RuntimeException(MessageConstant.DELETE_CHECKITEM_FAIL);
+        }else {
+            checkGroupDao.deleteById(id);
+        }
     }
 }

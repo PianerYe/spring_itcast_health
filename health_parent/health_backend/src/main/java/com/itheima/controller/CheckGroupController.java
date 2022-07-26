@@ -63,4 +63,29 @@ public class CheckGroupController {
            return new Result(false,MessageConstant.QUERY_CHECKITEM_FAIL);
        }
    }
+
+   //编辑检查项
+    @RequestMapping("/edit")
+    public Result edit(@RequestBody CheckGroup checkGroup,Integer[] checkitemIds){
+        try {
+            checkGroupService.edit(checkGroup,checkitemIds);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new Result(false, MessageConstant.EDIT_CHECKGROUP_FAIL);//新增失败
+        }
+        return new Result(true,MessageConstant.EDIT_CHECKGROUP_SUCCESS);//新增成功
+    }
+
+    //删除检查项
+    @RequestMapping("/delete")
+    public Result delete(Integer id){
+        try {
+            checkGroupService.deleteById(id);
+        }catch (Exception e){
+            e.printStackTrace();
+            //服务调用失败
+            return new Result(false, MessageConstant.DELETE_CHECKGROUP_FAIL);
+        }
+        return new Result(true,MessageConstant.DELETE_CHECKGROUP_SUCCESS);
+    }
 }
