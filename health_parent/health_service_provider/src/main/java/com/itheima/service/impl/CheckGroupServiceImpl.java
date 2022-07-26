@@ -31,15 +31,7 @@ public class CheckGroupServiceImpl implements CheckGroupService {
         checkGroupDao.add(checkGroup);
         //设置检查组和检查项的多对多的关联关系，操作t_checkgroup_checkitem表
         Integer checkGroupId = checkGroup.getId();
-        if (checkitemIds!=null && checkitemIds.length>0){
-
-            for (Integer checkitemid : checkitemIds){
-                Map<String,Integer> map = new HashMap<>();
-                map.put("checkgroupId",checkGroupId);
-                map.put("checkitemId",checkitemid);
-                checkGroupDao.setCheckGroupAndCheckItem(map);
-            }
-        }
+        this.setCheckGroupAndCheckItem(checkGroupId,checkitemIds);
     }
     //检查组分页查询
     @Override
@@ -77,16 +69,7 @@ public class CheckGroupServiceImpl implements CheckGroupService {
         //清除关系表
         checkGroupDao.deleteAssoication(checkGroupId);
         //设置检查组和检查项的多对多的关联关系，操作t_checkgroup_checkitem表
-        if (checkitemIds!=null && checkitemIds.length>0){
-            for (Integer checkitemid : checkitemIds){
-                Map<String,Integer> map = new HashMap<>();
-                map.put("checkgroupId",checkGroupId);
-                map.put("checkitemId",checkitemid);
-                checkGroupDao.setCheckGroupAndCheckItem(map);
-            }
-        }
-
-
+        this.setCheckGroupAndCheckItem(checkGroupId,checkitemIds);
     }
 
     //根据ID删除检查项
@@ -99,6 +82,18 @@ public class CheckGroupServiceImpl implements CheckGroupService {
             throw new RuntimeException(MessageConstant.DELETE_CHECKITEM_FAIL);
         }else {
             checkGroupDao.deleteById(id);
+        }
+    }
+
+    //建立检查组和检查项多对多关系(抽取方法)
+    public void setCheckGroupAndCheckItem(Integer checkGroupId,Integer[] checkitemIds){
+        if (checkitemIds!=null && checkitemIds.length>0){
+            for (Integer checkitemid : checkitemIds){
+                Map<String,Integer> map = new HashMap<>();
+                map.put("checkgroupId",checkGroupId);
+                map.put("checkitemId",checkitemid);
+                checkGroupDao.setCheckGroupAndCheckItem(map);
+            }
         }
     }
 }
