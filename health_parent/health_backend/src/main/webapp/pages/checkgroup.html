@@ -176,15 +176,15 @@
                             <template>
                                 <el-tabs v-model="activeName" type="card">
                                     <el-tab-pane label="基本信息" name="first">
-                                        <el-form ref="dataAddForm" :model="formData" :rules="rules" label-position="right" label-width="100px">
+                                        <el-form ref="dataEditForm" :model="formData" :rules="rules" label-position="right" label-width="100px">
                                             <el-row>
                                                 <el-col :span="12">
-                                                    <el-form-item label="编码">
+                                                    <el-form-item label="编码" prop="code">
                                                         <el-input v-model="formData.code"/>
                                                     </el-form-item>
                                                 </el-col>
                                                 <el-col :span="12">
-                                                    <el-form-item label="名称">
+                                                    <el-form-item label="名称" prop="name">
                                                         <el-input v-model="formData.name"/>
                                                     </el-form-item>
                                                 </el-col>
@@ -286,7 +286,8 @@
             methods: {
                 //编辑
                 handleEdit() {
-                    this.$refs['dataAddForm'].validate((valid)=>{
+                    this.$refs['dataEditForm'].validate((valid)=>{
+                        console.valueOf(this.valid);
                         if(valid){
                             //表单校验通过
                             //发送ajax请求。将表单数据提交后台进行处理
@@ -372,7 +373,7 @@
                     this.resetForm();
                     this.dialogFormVisible = true;
                     this.activeName = 'first';//默认选中first对应的tab
-                    this.checkitemIds = []
+                    this.checkitemIds = [];
                     //发送ajax请求，查询所有的检查项信息,转为json,赋值给tableData
                     axios.get("/checkitem/findAll.do").then((res)=>{
                        if (res.data.flag){

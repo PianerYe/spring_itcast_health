@@ -13,6 +13,5 @@ public interface CheckItemService {
     public void deleteById(Integer id);
     public void edit(CheckItem checkItem);
     public CheckItem findById(Integer id);
-
     public List<CheckItem> findAll();
 }

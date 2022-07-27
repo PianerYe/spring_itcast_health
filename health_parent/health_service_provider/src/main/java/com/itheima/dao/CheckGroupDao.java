@@ -17,4 +17,5 @@ public interface CheckGroupDao {
     public void deleteAssoication(Integer id);
     public long findCountByCheckGroupId(Integer id);
     public void deleteById(Integer id);
+    public List<CheckGroup> findAll();
 }
