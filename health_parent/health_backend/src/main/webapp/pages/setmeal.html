@@ -283,6 +283,22 @@
                     this.$refs['dataAddForm'].validate((valid)=>{
                         if (valid){
                             //表单校验通过
+                            //发送ajax请求，将表单数据（套餐基本信息，检查组ID）提交到后台处理
+                            axios.post("/setmeal/add.do?checkgroupIds=" + this.checkgroupIds,this.formData).then((res)=>{
+                               this.dialogFormVisible = false;
+                               if (res.data.flag){
+                                   //操作成功
+                                   this.$message({
+                                       type:'success',
+                                       message:res.data.message
+                                   })
+                               } else {
+                                   //操作失败
+                                   this.$message.error(res.data.message);
+                               }
+                            }).finally(()=>{
+                                this.findPage();
+                            });
                         }else {
                             //表单校验失败
                             this.$message.error("数据校验失败，请检查你的输入信息是否正确");
@@ -297,12 +313,13 @@
                 resetForm() {
                     this.formData={};
                     this.activeName = 'first';
+                    this.imageUrl = null;
+                    this.checkgroupIds = [];
                 },
                 // 弹出添加窗口
                 handleCreate() {
                     this.resetForm();
                     this.dialogFormVisible = true;
-                    this.checkgroupIds = [];
                     //发送ajax请求，查询所有的检查组信息,转为json,赋值给tableData
                     axios.get("/checkgroup/findAll.do").then((res)=>{
                         if (res.data.flag){

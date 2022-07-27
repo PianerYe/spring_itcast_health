@@ -12,12 +12,13 @@
                 values
         (#{code},#{name},#{helpCode},#{sex},#{remark},#{attention})
    </insert>
-    <!--设置检查组和检查项多对多关系-->
-   <insert id="setCheckGroupAndCheckItem" parameterType="map">
-       insert into t_checkgroup_checkitem(checkgroup_id,checkitem_id)
-            values
-                (#{checkgroupId},#{checkitemId})
-   </insert>
+
+    <!--设置检查组和检查表多对多关系-->
+    <insert id="setCheckGroupAndCheckItem" parameterType="map">
+        insert into t_checkgroup_checkitem(checkgroup_id,checkitem_id)
+        values
+            (#{checkgroupId},#{checkitemId})
+    </insert>
 
     <!--根据条件进行查询-->
     <select id="selectByCondition" parameterType="String" resultType="com.itheima.pojo.CheckGroup">
