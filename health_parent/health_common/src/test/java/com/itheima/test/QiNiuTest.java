@@ -26,6 +26,7 @@ public class QiNiuTest {
         String bucket = "itcasthealth-yepianer-space-1";
 //如果是Windows情况下，格式是 D:\\qiniu\\test.png
         String localFilePath = "D:\\soft\\day04\\资源\\图片资源\\03a36073-a140-4942-9b9b-712cecb144901.jpg";
+//        String localFilePath = "D:\\soft\\day04\\资源\\图片资源\\03a36073-a140-4942-9b9b-712cecb144901.jpg"
 //默认不指定key的情况下，以文件内容的hash值作为文件名
         String key = "abc.jpg";
         Auth auth = Auth.create(accessKey, secretKey);
@@ -47,8 +48,8 @@ public class QiNiuTest {
         }
     }
 
-  /*  //使用七牛云提供的sdk删除服务器上的图片
-    //@Test
+    //使用七牛云提供的sdk删除服务器上的图片
+    @Test
     public void test2(){
         //构造一个带指定Zone对象的配置类
         Configuration cfg = new Configuration(Zone.zone0());
@@ -68,6 +69,6 @@ public class QiNiuTest {
             System.err.println(ex.code());
             System.err.println(ex.response.toString());
         }
-    }*/
+    }
 
 }
