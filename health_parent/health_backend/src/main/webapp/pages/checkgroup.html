@@ -400,7 +400,7 @@
                             //查询失败，弹出提示
                             this.$message.error(res.data.message)
                         }
-                    })
+                    });
                     //发送ajax请求,查询所有的检查项数据，用于展示检查项列表
                    axios.get("/checkitem/findAll.do").then((res)=>{
                        if (res.data.flag){

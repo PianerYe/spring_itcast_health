@@ -3,6 +3,7 @@ package com.itheima.service.impl;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.itheima.constant.MessageConstant;
 import com.itheima.constant.RedisConstant;
 import com.itheima.dao.SetmealDao;
 import com.itheima.entity.PageResult;
@@ -54,6 +55,43 @@ public class SetmealServiceImpl implements SetmealService {
         long total = page.getTotal();
         List<Setmeal> rows = page.getResult();
         return new PageResult(total,rows);
+    }
+
+    //根据ID查询套餐
+    @Override
+    public Setmeal findById(Integer id) {
+        return setmealDao.findById(id);
+    }
+
+    @Override
+    public List<Integer> findCheckGroupIdsBySetmealId(Integer id) {
+        return setmealDao.findCheckGroupIdsBySetmealId(id);
+    }
+
+    //编辑套餐
+    @Override
+    public void edit(Setmeal setmeal, Integer[] checkgroupIds) {
+        //编辑套餐，操作t_setmeal表
+        setmealDao.edit(setmeal);
+        Integer setmealId = setmeal.getId();
+        //清除关系表
+        setmealDao.deleteAssoication(setmealId);
+        //设置套餐和检查组的多对多的关联关系，操作t_setmeal_checkgroup表
+        this.setSetmealAndCheckGroup(setmealId,checkgroupIds);
+    }
+
+    //根据套餐ID，删除套餐
+    @Override
+    public void deleteById(Integer id) {
+        //判断当前检查组是否已经关联到套餐
+        Long count = setmealDao.findCountBySetmealId(id);
+        if (count>0){
+            //当前检查组已经关联到套餐，不允许删除
+            throw new RuntimeException(MessageConstant.DELETE_CHECKGROUP_FAIL);
+        }else {
+            setmealDao.deleteById(id);
+        }
+
     }
 
     //建立套餐和检查组多对多关系(抽取方法)
