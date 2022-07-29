@@ -1,13 +1,19 @@
 package com.itheima.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.itheima.dao.SetmealDao;
+import com.itheima.entity.PageResult;
+import com.itheima.entity.QueryPageBean;
+import com.itheima.pojo.CheckGroup;
 import com.itheima.pojo.Setmeal;
 import com.itheima.service.SetmealService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,6 +33,20 @@ public class SetmealServiceImpl implements SetmealService {
         //设置套餐和检查组的多对多的关联关系，操作t_setmeal_checkgroup表
         Integer setmealId = setmeal.getId();
         this.setSetmealAndCheckGroup(setmealId,checkgroupIds);
+    }
+
+    @Override
+    public PageResult pageQuery(QueryPageBean queryPageBean) {
+        Integer currentPage = queryPageBean.getCurrentPage();
+        Integer pageSize = queryPageBean.getPageSize();
+        String queryString = queryPageBean.getQueryString();//查询条件
+        //完成分页查询，基于mybatis框架提供的分页助手插件完成
+        PageHelper.startPage(currentPage,pageSize);
+        //select * from t_checkgroup limit 0,10
+        Page<Setmeal> page = setmealDao.selectByCondition(queryString);
+        long total = page.getTotal();
+        List<Setmeal> rows = page.getResult();
+        return new PageResult(total,rows);
     }
 
     //建立套餐和检查组多对多关系(抽取方法)
