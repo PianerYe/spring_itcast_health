@@ -274,8 +274,9 @@
                                                     <el-form-item label="加载图片">
                                                         <el-upload
                                                                 class="avatar-uploader"
-                                                                action="/setmeal/upload.do"
+                                                                action="/setmeal/changeupload.do"
                                                                 :auto-upload="autoUpload"
+                                                                :data="{initImageUrl:this.imageUrl}"
                                                                 name="imgFile"
                                                                 :show-file-list="false"
                                                                 :on-success="handleAvatarSuccess"
@@ -385,6 +386,7 @@
                 beforeAvatarUpload(file) {
 				  const isJPG = file.type === 'image/jpeg';
 				  const isLt2M = file.size / 1024 / 1024 < 2;
+                  imgUrl = this.imageUrl;
 				  if (!isJPG) {
 					this.$message.error('上传套餐图片只能是 JPG 格式!');
 				  }

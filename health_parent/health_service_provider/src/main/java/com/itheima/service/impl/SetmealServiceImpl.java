@@ -71,6 +71,11 @@ public class SetmealServiceImpl implements SetmealService {
     //编辑套餐
     @Override
     public void edit(Setmeal setmeal, Integer[] checkgroupIds) {
+        //将原先图片名称从到Redis集合中删除
+        Integer initSetmealId1id = setmeal.getId();
+        //获取原先数据库中保存的图片数据信息
+        String  initSetmealGetimg =findById(initSetmealId1id).getImg();
+        deletePic2Redis(initSetmealGetimg);
         //编辑套餐，操作t_setmeal表
         setmealDao.edit(setmeal);
         Integer setmealId = setmeal.getId();
@@ -78,6 +83,9 @@ public class SetmealServiceImpl implements SetmealService {
         setmealDao.deleteAssoication(setmealId);
         //设置套餐和检查组的多对多的关联关系，操作t_setmeal_checkgroup表
         this.setSetmealAndCheckGroup(setmealId,checkgroupIds);
+
+        //将图片名称保存到Redis集合中
+        savePic2Redis(setmeal.getImg());
     }
 
     //根据套餐ID，删除套餐
@@ -109,5 +117,9 @@ public class SetmealServiceImpl implements SetmealService {
     //将图片名称保存到Redis
     private void savePic2Redis(String pic){
         jedisPool.getResource().sadd(RedisConstant.SETMEAL_PIC_DB_RESOURCES,pic);
+    }
+    //将原先图片名称从Redis删除
+    private void deletePic2Redis(String pic){
+        jedisPool.getResource().srem(RedisConstant.SETMEAL_PIC_DB_RESOURCES,pic);
     }
 }

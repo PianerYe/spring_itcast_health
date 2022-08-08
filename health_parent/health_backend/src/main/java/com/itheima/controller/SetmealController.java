@@ -123,4 +123,33 @@ public class SetmealController {
         }
         return new Result(true,MessageConstant.DELETE_SETMEAL_SUCCESS);
     }
+
+    @RequestMapping("/changeupload")
+    public Result changeupload(@RequestParam("imgFile") MultipartFile imgFile,@RequestParam("initImageUrl") String initImgeUrl){
+
+        //获得原先上传的图片名称
+        String initialname = initImgeUrl.replace("http://rfn66ygit.hd-bkt.clouddn.com/","");
+        //获取原始文件名
+        String originalFilename = imgFile.getOriginalFilename();//原始文件名
+        int index = originalFilename.lastIndexOf(".");
+        String extention = originalFilename.substring(index);
+        String fileName = UUID.randomUUID().toString() + extention; // 随机36位字符串
+        try {
+            //将文件上传到七牛云服务器
+            QiniuUtils.upload2Qiniu(imgFile.getBytes(),fileName);
+            //图片上传成功
+            Result result = new Result(true,MessageConstant.PIC_UPLOAD_SUCCESS);
+            result.setData(fileName);
+            //将上传图片名称存入Redis,基于Redis的Set集合存储
+            jedisPool.getResource().sadd(RedisConstant.SETMEAL_PIC_RESOURCES,fileName);
+            //将原先上传的图片名称从Redis中删除
+//            jedisPool.getResource().srem(RedisConstant.SETMEAL_PIC_RESOURCES, initialname);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            //图片上传失败
+            return new Result(false, MessageConstant.PIC_UPLOAD_FAIL);
+        }
+        return new Result(true,MessageConstant.PIC_UPLOAD_SUCCESS,fileName);
+    }
 }
