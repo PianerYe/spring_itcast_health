@@ -97,6 +97,11 @@ public class SetmealServiceImpl implements SetmealService {
             //当前检查组已经关联到套餐，不允许删除
             throw new RuntimeException(MessageConstant.DELETE_CHECKGROUP_FAIL);
         }else {
+            //获取原先数据库中保存的图片数据信息
+            String  initSetmealGetimg =findById(id).getImg();
+            //将原先图片名称从到Redis集合中删除
+            deletePic2Redis(initSetmealGetimg);
+
             setmealDao.deleteById(id);
         }
 
