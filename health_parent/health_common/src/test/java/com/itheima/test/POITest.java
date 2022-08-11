@@ -11,6 +11,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
 public class POITest {
 
@@ -59,5 +60,32 @@ public class POITest {
         excel.close();
     }
 
+    //使用POI向Excel文件写入数据，并且通过输出流将创建的Excel文件保存到本地磁盘
+    @Test
+    public void test3() throws Exception{
+        //在内存中创建一个Excel文件
+        XSSFWorkbook excel = new XSSFWorkbook();
+        //创建一个工作表对象
+        XSSFSheet sheet = excel.createSheet("传智播客");
+        //在工作表中创建行对象
+        XSSFRow title = sheet.createRow(0);
+        //在行中创建单元格对象
+        title.createCell(0).setCellValue("姓名");
+        title.createCell(1).setCellValue("地址");
+        title.createCell(2).setCellValue("年龄");
+
+        XSSFRow dataRow = sheet.createRow(1);
+        dataRow.createCell(0).setCellValue("小明");
+        dataRow.createCell(1).setCellValue("北京");
+        dataRow.createCell(2).setCellValue("20");
+
+        //创建一个输出流，通过输出流将内存中的Excel文件写道磁盘
+        FileOutputStream out = new FileOutputStream(new File("C:\\Users\\yxkf\\Desktop\\hello.xlsx"));
+        excel.write(out);
+        out.flush();
+
+        excel.close();
+
+    }
 
 }
