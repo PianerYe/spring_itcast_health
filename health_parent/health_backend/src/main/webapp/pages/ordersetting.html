@@ -47,6 +47,7 @@
                             操作说明：请点击"模板下载"按钮获取模板文件，在模板文件中录入预约设置数据后点击"上传文件"按钮上传模板文件。
                         </div>
                     </el-card>
+
                     <div class="calendar">
                         <!-- 年份 月份 -->
                         <div class="month">
@@ -84,7 +85,7 @@
                                         <!-- 当前月 -->
                                         <div class="everyday" v-if="dayobject.day.getMonth()+1 == currentMonth">
                                             <span class="datenumber">{{ dayobject.day.getDate()}}</span>
-                                            
+
 											<template>
                                                 <template v-for="obj in leftobj">
                                                     <template v-if="obj.date == dayobject.day.getDate()">
@@ -105,13 +106,14 @@
                                                 </template>
                                                 <button v-if="dayobject.day > today" @click="handleOrderSet(dayobject.day)" class="orderbtn">设置</button>
                                             </template>
-											
+
                                         </div>
                                     </template>
                                 </li>
                             </ul>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -222,7 +224,7 @@
                             dayobject.index = index++;
                         this.days.push(dayobject);
                     }
-                    
+
                     /*this.leftobj = [
                         { date: 1, number: 120, reservations: 1 },
                         { date: 3, number: 120, reservations: 1 },
