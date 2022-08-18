@@ -25,4 +25,9 @@
     <select id="findCountByOrderDate" parameterType="date" resultType="long">
         select count(1) from t_ordersetting where orderDate = #{orderDate}
     </select>
+
+    <!--根据日期范围来查询-->
+    <select id="getOrderSettingByMonth" parameterType="String" resultType="com.itheima.pojo.OrderSetting">
+        SELECT * FROM t_ordersetting WHERE DATE_FORMAT(orderDate,'%Y-%m')= #{orderDate}
+    </select>
 </mapper>

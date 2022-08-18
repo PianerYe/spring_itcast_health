@@ -7,7 +7,10 @@ import com.itheima.service.OrderSettingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * 预约设置服务
@@ -36,5 +39,28 @@ public class OrderSettingServiceImpl implements OrderSettingService {
                 }
             }
         }
+    }
+
+    //根据月份查询对应的预约设置数据
+    @Override
+    public List<Map> getOrderSettingByMonth(String date) throws Exception{//yyyy-MM
+        //SELECT * FROM t_ordersetting WHERE DATE_FORMAT(orderDate,'%Y-%m')= '2023-02'
+        //日期格式转换
+       /* SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+        Date temp = sdf.parse(date);
+        String date1 = sdf.format(temp);*/
+            //调用Dao,根据日期查询预约设置数据
+            List<OrderSetting> list = orderSettingDao.getOrderSettingByMonth(date);
+            List<Map> result = new ArrayList<>();
+            if (list!= null && list.size()>0){
+                for (OrderSetting orderSetting : list){
+                    Map<String,Object> m = new HashMap<>();
+                    m.put("date",orderSetting.getOrderDate().getDate());//获取日期数字(几号)
+                    m.put("number",orderSetting.getNumber());
+                    m.put("reservations",orderSetting.getReservations());
+                    result.add(m);
+                }
+            }
+            return result;
     }
 }
