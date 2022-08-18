@@ -142,6 +142,23 @@
             methods: {
 				//预约设置
                 handleOrderSet(day){
+                    //alert(day);
+                    this.$prompt('请输入可预约人数','预约设置',{
+                        confirmButtonText:'确定',
+                        cancelButtonText:'取消',
+                        inputPattern:/^[0-9]*[1-9][0-9]*$/,
+                        inputErrorMessage:'只能输入正整数'
+                    }).then(({value}) =>{
+                        this.$message({
+                            type: 'success',
+                            message: '你的输入是：' + value
+                        });
+                    }).catch(()=>{
+                        this.$message({
+                            type:'info',
+                            message:'取消输入'
+                        });
+                    });
                 },
 				//上传之前进行文件格式校验
                 beforeUpload(file){
