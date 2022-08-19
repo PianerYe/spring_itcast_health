@@ -155,11 +155,11 @@
                             orderDate:this.formatDate(day.getFullYear(),day.getMonth()+1,day.getDate()) //日期
                         }).then((res)=>{
                             if (res.data.flag){
-                                this.initData(this.formatDate(day.getFullYear(),day.getMonth()+1,day.getDate()));
                                 this.$message({
                                     type:'success',
                                     message:res.data.message
                                 });
+                                this.initData(this.formatDate(day.getFullYear(),day.getMonth()+1,1));
                             }else {
                                 this.$message.error(res.data.message);
                             }

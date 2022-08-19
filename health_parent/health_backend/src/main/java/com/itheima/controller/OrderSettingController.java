@@ -6,6 +6,7 @@ import com.itheima.entity.Result;
 import com.itheima.pojo.OrderSetting;
 import com.itheima.service.OrderSettingService;
 import com.itheima.utils.POIUtils;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -58,6 +59,18 @@ public class OrderSettingController {
         }catch (Exception e){
             e.printStackTrace();
             return new Result(false,MessageConstant.GET_ORDERSETTING_FAIL);
+        }
+    }
+
+    //根据日期设置对应的预约设置数据
+    @RequestMapping("/editNumberByDate")
+    public Result editNumberByDate(@RequestBody OrderSetting orderSetting){
+        try {
+            orderSettingService.editNumberByDate(orderSetting);
+            return new Result(true,MessageConstant.ORDERSETTING_SUCCESS);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new Result(false,MessageConstant.ORDERSETTING_FAIL);
         }
     }
 }

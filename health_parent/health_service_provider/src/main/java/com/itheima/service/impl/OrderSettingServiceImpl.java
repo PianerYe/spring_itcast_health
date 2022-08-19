@@ -29,7 +29,7 @@ public class OrderSettingServiceImpl implements OrderSettingService {
             for (OrderSetting orderSetting : list){
                 //判断当前日期是否已经进行了预约设置
                 long countByOrderDate = orderSettingDao.findCountByOrderDate(orderSetting.getOrderDate());
-                System.out.println(countByOrderDate);
+            //    System.out.println(countByOrderDate);
                 if (countByOrderDate > 0 ){
                     //已经进行了预约设置，执行更新操作
                     orderSettingDao.editNumberByOrderDate(orderSetting);
@@ -62,5 +62,19 @@ public class OrderSettingServiceImpl implements OrderSettingService {
                 }
             }
             return result;
+    }
+
+    @Override
+    public void editNumberByDate(OrderSetting orderSetting) {
+        Date orderDate = orderSetting.getOrderDate();
+        //根据日期查询是否已经进行了预约设置
+        long count = orderSettingDao.findCountByOrderDate(orderDate);
+        if (count>0){
+            //当前日期已经进行了预约设置，需要执行更新操作
+            orderSettingDao.editNumberByOrderDate(orderSetting);
+        }else {
+            //没有进行预约设置，执行插入操作
+            orderSettingDao.add(orderSetting);
+        }
     }
 }

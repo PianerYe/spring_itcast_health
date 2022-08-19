@@ -9,4 +9,6 @@ public interface OrderSettingService {
     public void add(List<OrderSetting> data);
 
     public List<Map> getOrderSettingByMonth(String date) throws Exception;
+
+    public void editNumberByDate(OrderSetting orderSetting);
 }
