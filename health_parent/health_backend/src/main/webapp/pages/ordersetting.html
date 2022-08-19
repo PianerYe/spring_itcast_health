@@ -142,16 +142,27 @@
             methods: {
 				//预约设置
                 handleOrderSet(day){
-                    //alert(day);
+                   // alert(this.formatDate(day.getFullYear(),day.getMonth()+1,day.getDate()));
                     this.$prompt('请输入可预约人数','预约设置',{
                         confirmButtonText:'确定',
                         cancelButtonText:'取消',
                         inputPattern:/^[0-9]*[1-9][0-9]*$/,
                         inputErrorMessage:'只能输入正整数'
                     }).then(({value}) =>{
-                        this.$message({
-                            type: 'success',
-                            message: '你的输入是：' + value
+                        //发送ajax，将输入的数据提交到Controller
+                        axios.post("/ordersetting/editNumberByDate.do",{
+                            number:value,  //可预约人数
+                            orderDate:this.formatDate(day.getFullYear(),day.getMonth()+1,day.getDate()) //日期
+                        }).then((res)=>{
+                            if (res.data.flag){
+                                this.initData(this.formatDate(day.getFullYear(),day.getMonth()+1,day.getDate()));
+                                this.$message({
+                                    type:'success',
+                                    message:res.data.message
+                                });
+                            }else {
+                                this.$message.error(res.data.message);
+                            }
                         });
                     }).catch(()=>{
                         this.$message({
