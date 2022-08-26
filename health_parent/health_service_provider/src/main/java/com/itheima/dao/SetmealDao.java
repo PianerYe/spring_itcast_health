@@ -24,4 +24,6 @@ public interface SetmealDao {
     public void deleteById(Integer id);
 
     public Long findCountBySetmealId(Integer id);
+
+    public List<Setmeal> findAll();
 }

@@ -9,9 +9,6 @@ import com.qiniu.storage.Configuration;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.storage.model.DefaultPutRet;
 import com.qiniu.util.Auth;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 
 /**
  * 七牛云工具类
@@ -19,7 +16,7 @@ import java.io.InputStream;
 public class QiniuUtils {
     public  static String accessKey = "X49CSYYS68lUFuLYJ8s2AwuQjssBwRjz0A-UEpM6";
     public  static String secretKey = "FOmcyLWGq-DU_Ch_mgNkdwtNLJR8bFFZ7Zjggfxm";
-    public  static String bucket = "itcasthealth-yepianer-space-1";
+    public  static String bucket = "itcasthealth-yepianer-space-2";
 
     public static void upload2Qiniu(String filePath,String fileName){
         //构造一个带指定Zone对象的配置类

@@ -8,7 +8,6 @@ import com.itheima.constant.RedisConstant;
 import com.itheima.dao.SetmealDao;
 import com.itheima.entity.PageResult;
 import com.itheima.entity.QueryPageBean;
-import com.itheima.pojo.CheckGroup;
 import com.itheima.pojo.Setmeal;
 import com.itheima.service.SetmealService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,6 +104,11 @@ public class SetmealServiceImpl implements SetmealService {
             setmealDao.deleteById(id);
         }
 
+    }
+
+    @Override
+    public List<Setmeal> findAll() {
+        return setmealDao.findAll();
     }
 
     //建立套餐和检查组多对多关系(抽取方法)

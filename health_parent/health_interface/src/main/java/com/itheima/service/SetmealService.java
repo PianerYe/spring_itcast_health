@@ -18,4 +18,6 @@ public interface SetmealService {
     public void edit(Setmeal setmeal, Integer[] checkgroupIds);
 
     public void deleteById(Integer id);
+
+    public List<Setmeal> findAll();
 }
