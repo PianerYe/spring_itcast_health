@@ -20,10 +20,12 @@ public interface SetmealDao {
     public void edit(Setmeal setmeal);
 
     public void deleteAssoication(Integer setmealId);
-
     public void deleteById(Integer id);
 
     public Long findCountBySetmealId(Integer id);
 
     public List<Setmeal> findAll();
+
+    public Setmeal findByIdOfDetails(int id);
+
 }

@@ -2,6 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.itheima.dao.SetmealDao">
+    <resultMap id="baseResultMap" type="com.itheima.pojo.Setmeal">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="code" property="code"></result>
+        <result column="helpCode" property="helpCode"></result>
+        <result column="sex" property="sex"></result>
+        <result column="age" property="age"></result>
+        <result column="price" property="price"></result>
+        <result column="remark" property="remark"></result>
+        <result column="attention" property="attention"></result>
+        <result column="img" property="img"></result>
+    </resultMap>
+
+    <resultMap id="findByIdResultMap" type="com.itheima.pojo.Setmeal" extends="baseResultMap">
+
+    </resultMap>
 
     <!--插入套餐数据-->
     <insert id="add" parameterType="com.itheima.pojo.Setmeal">
@@ -91,5 +107,10 @@
     <!--查询所有套餐-->
     <select id="findAll" resultType="com.itheima.pojo.Setmeal">
         select * from t_setmeal
+    </select>
+
+    <!--根据套餐ID查询套餐详情（套餐基本信息，套餐对应的检查组信息，检查组对应的检查项信息）-->
+    <select id="findByIdOfDetails" parameterType="int" resultMap="findByIdResultMap">
+        select * from t_setmeal where id = #{id}
     </select>
 </mapper>

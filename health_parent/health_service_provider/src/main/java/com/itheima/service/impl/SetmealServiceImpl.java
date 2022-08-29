@@ -111,6 +111,11 @@ public class SetmealServiceImpl implements SetmealService {
         return setmealDao.findAll();
     }
 
+    @Override
+    public Setmeal findByIdOfDetails(int id) {
+        return setmealDao.findByIdOfDetails(id);
+    }
+
     //建立套餐和检查组多对多关系(抽取方法)
     public void setSetmealAndCheckGroup(Integer setmealId,Integer[] checkgroupIds){
         if (checkgroupIds!=null && checkgroupIds.length > 0){
