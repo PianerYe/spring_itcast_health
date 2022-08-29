@@ -21,5 +21,5 @@ public interface SetmealService {
 
     public List<Setmeal> findAll();
 
-    Setmeal findByIdOfDetails(int id);
+    public Setmeal findByIdOfDetails(Integer id);
 }

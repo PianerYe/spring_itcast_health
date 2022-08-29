@@ -26,6 +26,6 @@ public interface SetmealDao {
 
     public List<Setmeal> findAll();
 
-    public Setmeal findByIdOfDetails(int id);
+    public Setmeal findByIdOfDetails(Integer id);
 
 }
