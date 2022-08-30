@@ -8,7 +8,10 @@
 // | Author: 橘子俊，开发文档请访问 http://sms.shansuma.com/docs
 // +----------------------------------------------------------------------------
 
-package com.itheima.utils;
+package com.itheima.test;
+
+import com.itheima.utils.Client;
+import com.itheima.utils.ValidateCodeUtils;
 
 public class TestClient {
 
