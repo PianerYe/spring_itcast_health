@@ -6,7 +6,6 @@ import com.itheima.constant.RedisConstant;
 import com.itheima.entity.PageResult;
 import com.itheima.entity.QueryPageBean;
 import com.itheima.entity.Result;
-import com.itheima.pojo.CheckGroup;
 import com.itheima.pojo.Setmeal;
 import com.itheima.service.SetmealService;
 import com.itheima.utils.QiniuUtils;
@@ -38,7 +37,6 @@ public class SetmealController {
     //文件上传
     @RequestMapping("/upload")
     public Result upload(@RequestParam("imgFile") MultipartFile imgFile){
-
             //获取原始文件名
             String originalFilename = imgFile.getOriginalFilename();//原始文件名
             int index = originalFilename.lastIndexOf(".");
