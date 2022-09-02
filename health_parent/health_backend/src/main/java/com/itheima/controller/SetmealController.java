@@ -42,6 +42,7 @@ public class SetmealController {
             int index = originalFilename.lastIndexOf(".");
             String extention = originalFilename.substring(index);
             String fileName = UUID.randomUUID().toString() + extention; // 随机36位字符串
+
         try {
             //将文件上传到七牛云服务器
             QiniuUtils.upload2Qiniu(imgFile.getBytes(),fileName);
