@@ -52,10 +52,8 @@ public class SetmealServiceImpl implements SetmealService {
         this.setSetmealAndCheckGroup(setmealId,checkgroupIds);
         //将图片名称保存到Redis集合中
         savePic2Redis(setmeal.getImg());
-
         //当添加套餐后需要重新生成静态页面（套餐列表页面，套餐详情页面）
         generateMobileStaticHtml();
-
 
     }
 
@@ -63,10 +61,8 @@ public class SetmealServiceImpl implements SetmealService {
     public void generateMobileStaticHtml(){
         //再生成静态页面之前需要查询数据
         List<Setmeal> list = setmealDao.findAll();
-
         //需要生成套餐列表静态页面
         generateMobileSetmealListHtml(list);
-
         //需要生成套餐详情静态页面
         generateMobileSetmealDetailHtml(list);
     }
@@ -83,7 +79,7 @@ public class SetmealServiceImpl implements SetmealService {
     public void generateMobileSetmealDetailHtml(List<Setmeal> list){
         for (Setmeal setmeal : list) {
             Map map = new HashMap<>();
-            map.put("setmeal",setmeal);
+            map.put("setmeal",setmealDao.findByIdOfDetails(setmeal.getId()));
             generateHtml("mobile_setmeal_detail.ftl","setmeal_detail_"+setmeal.getId()+".html",map);
         }
     }
@@ -144,9 +140,10 @@ public class SetmealServiceImpl implements SetmealService {
         setmealDao.deleteAssoication(setmealId);
         //设置套餐和检查组的多对多的关联关系，操作t_setmeal_checkgroup表
         this.setSetmealAndCheckGroup(setmealId,checkgroupIds);
-
         //将图片名称保存到Redis集合中
         savePic2Redis(setmeal.getImg());
+        //当编辑套餐后需要重新生成静态页面（套餐列表页面，套餐详情页面）
+        generateMobileStaticHtml();
     }
 
     //根据套餐ID，删除套餐
@@ -162,8 +159,14 @@ public class SetmealServiceImpl implements SetmealService {
             String  initSetmealGetimg =findById(id).getImg();
             //将原先图片名称从到Redis集合中删除
             deletePic2Redis(initSetmealGetimg);
-
             setmealDao.deleteById(id);
+            //当删除套餐后生成的静态页面删除
+                File file = new File(outPutPath+"/setmeal_detail_"+id+".html");
+                if (file.exists()){
+                    file.delete();
+                }
+            //重新生成静态页面（套餐列表页面，套餐详情页面）
+            generateMobileStaticHtml();
         }
 
     }
