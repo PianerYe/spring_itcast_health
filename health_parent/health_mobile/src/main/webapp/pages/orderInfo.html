@@ -33,7 +33,7 @@
             <div class="contentBox">
                 <div class="card">
                     <div class="">
-                        <img :src="'http://pqjroc654.bkt.clouddn.com/'+setmeal.img" width="100%" height="100%" />
+                        <img :src="'http://rh7t20pmg.hd-bkt.clouddn.com/'+setmeal.img" width="100%" height="100%" />
                     </div>
                     <div class="project-text">
                         <h4 class="tit">{{setmeal.name}}</h4>
@@ -119,6 +119,13 @@
                     }
                 },
                 mounted(){
+                    //发送ajax请求，根据套餐ID查询套餐信息，用于页面展示
+                    axios.post("/setmeal/findById.do?id=" + id).then((res)=>{
+                        if (res.data.flag){
+                            //查询成功，给模型数据赋值
+                            this.setmeal = res.data.data;
+                        }
+                    });
                 }
             });
         </script>
