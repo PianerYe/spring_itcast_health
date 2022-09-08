@@ -113,6 +113,26 @@
                 methods:{
                     //发送验证码
                     sendValidateCode(){
+                        //获取输入的手机号
+                        var telephone = this.orderInfo.telephone;
+                        if (!checkTelephone(telephone)){
+                            //校验失败
+                            this.$message.error("请输入正确的手机号");
+                            return false;
+                        }
+                        //显示30秒倒计时效果
+                        validateCodeButton = $("#validateCodeButton")[0];//锁定dom对象
+                        clock = window.setInterval(doLoop,1000);//定时器方法，可以实现每隔指定的时间调用指定的方法
+                        //发送ajax请求，为用户发送手机验证码
+                        axios.post("/validateCode/send4Order.do?telephone=" + telephone).then((res)=>{
+                            if (!res.data.flag){
+                                //验证码发送失败
+                                this.$message.error("验证码发送失败，请检查手机号输入是否正确");
+                            }else {
+                                //验证码发送成功
+                                this.$message.info(res.data.message);
+                            }
+                        });
                     },
                     //提交预约
                     submitOrder(){
