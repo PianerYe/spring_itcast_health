@@ -11,7 +11,6 @@
 package com.itheima.test;
 
 import com.itheima.utils.Client;
-import com.itheima.utils.ValidateCodeUtils;
 
 public class TestClient {
 
@@ -29,9 +28,17 @@ public class TestClient {
         Client.Request request = new Client.Request();
         request.setMethod("sms.message.send");
 //        String code = ValidateCodeUtils.generateValidateCode4String(4);
-        Integer code = ValidateCodeUtils.generateValidateCode(4);
-        System.out.println(code);
-        request.setBizContent("{\"mobile\":[\"15858970314\"],\"type\":0,\"template_id\":\"ST_2022083000000005\",\"sign\":\"" + singnstr +"\",\"send_time\":\"\",\"params\":{\"code\":\""+ code +"\"}}");  // 这里是json字符串，send_time 为空时可以为null, params 为空时可以为null,短信签名填写审核后的签名本身，不需要填写签名id
+//        Integer code = ValidateCodeUtils.generateValidateCode(4);
+//        System.out.println(code);
+        String telephone = "15858970314";
+        String orderDate = "2022-9-10";
+        request.setBizContent("{\"mobile\":[\"" +
+                ""+ telephone +"\"]," +
+                "\"type\":0," +
+                "\"template_id\":\"ST_2022090900000001\",\"sign\":\"" + singnstr
+                +"\",\"send_time\":\"\",\"params\":{\"code\":\""+ orderDate +"\"}}");
+
+//        request.setBizContent("{\"mobile\":[\"15858970314\"],\"type\":0,\"template_id\":\"ST_2022083000000005\",\"sign\":\"" + singnstr +"\",\"send_time\":\"\",\"params\":{\"code\":\""+ code +"\"}}");  // 这里是json字符串，send_time 为空时可以为null, params 为空时可以为null,短信签名填写审核后的签名本身，不需要填写签名id
         System.out.println( client.execute(request) );
     }
 
