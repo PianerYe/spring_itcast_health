@@ -33,7 +33,14 @@ public class OrderServiceImpl implements OrderService {
             return new Result(false, MessageConstant.SELECTED_DATE_CANNOT_ORDER);
         }
         //2.检查用户所选择的预约日期是否已经约满，如果已经约满则无法预约
+        int number = orderSetting.getNumber();//可预约人数
+        int reservations = orderSetting.getReservations();//已预约人数
+        if (number <= reservations){
+            //已经约满,无法预约
+            return new Result(false,MessageConstant.ORDER_FULL);
+        }
         //3.检查用户是否重复预约（同一个用户同一天预约了同一个套餐），如果重复预约则无法完成预约
+
         //4.检查当前用户是否为会员，如果是会员则直接完成预约，如果不是会员则自动完成注册并进行预约
         //5.预约成功，更新当日的已预约人数
         return null;
