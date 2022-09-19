@@ -30,4 +30,15 @@
     <select id="getOrderSettingByMonth" parameterType="String" resultType="com.itheima.pojo.OrderSetting">
         SELECT * FROM t_ordersetting WHERE DATE_FORMAT(orderDate,'%Y-%m')= #{orderDate}
     </select>
+
+    <update id="editReservationsByOrderDate" parameterType="com.itheima.pojo.OrderSetting">
+        update t_ordersetting
+        set reservations = #{reservations}
+        where orderDate = #{orderDate}
+    </update>
+
+    <select id="findByOrderDate" parameterType="date" resultType="com.itheima.pojo.OrderSetting">
+        select * from t_ordersetting
+        where orderDate = #{orderDate}
+    </select>
 </mapper>
