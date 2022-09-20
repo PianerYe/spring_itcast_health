@@ -28,6 +28,19 @@ public class OrderController {
     @Reference
     private OrderService orderService;
 
+    //根据预约ID查询预约相关信息
+    @RequestMapping("/findById")
+    public Result findById(Integer id){
+        try {
+            Map map = orderService.findById(id);
+            return new Result(true,MessageConstant.QUERY_ORDER_SUCCESS,map);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new Result(false,MessageConstant.QUERY_ORDER_FAIL);
+        }
+    }
+
+
     //在线体检预约
     @RequestMapping("/submit")
     public Result submit(@RequestBody Map map){
