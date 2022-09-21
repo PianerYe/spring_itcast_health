@@ -127,7 +127,7 @@
                         axios.post("/validateCode/send4Order.do?telephone=" + telephone).then((res)=>{
                             if (!res.data.flag){
                                 //验证码发送失败
-                                this.$message.error("验证码发送失败，请检查手机号输入是否正确");
+                                this.$message.error(response.data.message);
                             }else {
                                 //验证码发送成功
                                 this.$message.info(res.data.message);
