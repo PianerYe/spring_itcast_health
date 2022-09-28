@@ -23,6 +23,12 @@ public class MD5Utils {
 		}
 		return md5code;
 	}
+	/**
+	 * md5的算法进行解密
+	 * */
+	public static String smd5(String md5code){
+		return null;
+	}
 
 	public static void main(String[] args) {
 		System.out.println(md5("1234"));

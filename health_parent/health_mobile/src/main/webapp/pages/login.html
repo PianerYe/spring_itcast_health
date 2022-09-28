@@ -87,11 +87,11 @@
                     }
                     //发送ajax请求，将表单数据提交到Controller进行登录处理
                     axios.post("/member/login.do",this.loginInfo).then((res)=>{
-                       if (res.date.flag){
+                       if (res.data.flag){
                            //登录成功，跳转到会员首页
                            window.location.href = "member.html";
                        }else {
-                           this.$message.error(res.date.message);
+                           this.$message.error(res.data.message);
                        }
                     });
 

@@ -30,7 +30,7 @@
     <div class="contentBox">
         <div class="card">
             <div class="project-img">
-                <img src="http://rh7t20pmg.hd-bkt.clouddn.com/${setmeal.img}" width="100%" height="100%" />
+                <img src="http://riumnhpxn.hd-bkt.clouddn.com/${setmeal.img}" width="100%" height="100%" />
             </div>
             <div class="project-text">
                 <h4 class="tit">${setmeal.name}</h4>
