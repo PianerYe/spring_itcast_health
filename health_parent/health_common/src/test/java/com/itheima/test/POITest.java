@@ -19,7 +19,7 @@ public class POITest {
     @Test
     public void test1() throws Exception {
         //加载指定文件，创建一个Excel对象（工作簿）
-        XSSFWorkbook excel = new XSSFWorkbook(new FileInputStream(new File("C:\\Users\\yxkf\\Desktop\\poi.xlsx")));
+        XSSFWorkbook excel = new XSSFWorkbook(new FileInputStream(new File("C:\\Users\\yepianer\\Desktop\\poi.xlsx")));
         //读取Excle文件中第一个Sheet标签页
         XSSFSheet sheet = excel.getSheetAt(0);
         //遍历Sheet标签页，获得每一行数据
@@ -38,7 +38,7 @@ public class POITest {
     @Test
     public void test2() throws Exception {
         //加载指定文件，创建一个Excel对象（工作簿）
-        XSSFWorkbook excel = new XSSFWorkbook(new FileInputStream(new File("C:\\Users\\yxkf\\Desktop\\poi.xlsx")));
+        XSSFWorkbook excel = new XSSFWorkbook(new FileInputStream(new File("C:\\Users\\yepianer\\Desktop\\poi.xlsx")));
         //读取Excle文件中第一个Sheet标签页
         XSSFSheet sheet = excel.getSheetAt(0);
         //获得当前工作表中最后一个行号，需要注意，行号从0开始
@@ -49,7 +49,7 @@ public class POITest {
             //获得当前行中最后一个单元格索引
             short lastCellNum = row.getLastCellNum();
 //            System.out.println("lastCellNum =" + lastCellNum);  //从1开始获取单元格序列
-            for (int j = 0;j<lastRowNum;j++){
+            for (int j = 0;j<lastCellNum;j++){
                 XSSFCell cell = row.getCell(j);//根据单元格索引获得单元格对象
                 System.out.println(cell.getStringCellValue());
             }
@@ -80,7 +80,7 @@ public class POITest {
         dataRow.createCell(2).setCellValue("20");
 
         //创建一个输出流，通过输出流将内存中的Excel文件写道磁盘
-        FileOutputStream out = new FileOutputStream(new File("C:\\Users\\yxkf\\Desktop\\hello.xlsx"));
+        FileOutputStream out = new FileOutputStream(new File("C:\\Users\\yepianer\\Desktop\\hello.xlsx"));
         excel.write(out);
         out.flush();
 
