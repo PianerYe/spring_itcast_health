@@ -67,6 +67,14 @@
             disabled:是否启用CsrfFilter过滤器，如果使用自定义登录界面需要关闭此项，否则登录操作会被禁用（403）
         -->
         <security:csrf disabled="true"></security:csrf>
+
+        <!--
+            logout：退出登录
+            logout-url:退出登录操作对应的请求路径
+            logout-success-url:退出登录后的跳转页面
+        -->
+        <security:logout logout-url="/logout.do"
+                         logout-success-url="/login.html" invalidate-session="true"/>
     </security:http>
 
     <!--配置认证管理器-->
