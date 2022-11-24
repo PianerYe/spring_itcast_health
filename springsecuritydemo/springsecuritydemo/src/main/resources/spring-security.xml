@@ -19,7 +19,7 @@
     <!--配置哪些资源匿名可以访问（不登陆也可以访问）-->
 <!--    <security:http security="none" pattern="/pages/a.html"></security:http>
     <security:http security="none" pattern="/pages/b.html"></security:http>-->
-    <security:http security="none" pattern="/pages/**"></security:http>
+    <!--<security:http security="none" pattern="/pages/**"></security:http>-->
     <security:http security="none" pattern="/login.html"></security:http>
 
 
@@ -34,6 +34,19 @@
             pattern:描述拦截规则
             asscess:指定所需的访问角色或者访问权限
         -->
+        <!--只要通过认证就可以访问-->
+        <security:intercept-url pattern="/pages/a.html" access="isAuthenticated()"/>
+
+        <!--拥有add权限就可以访问b.html页面-->
+        <security:intercept-url pattern="/pages/b.html" access="hasAuthority('add')"/>
+
+        <!--拥有ROLE_ADMIN角色就可以访问c.html页面-->
+        <security:intercept-url pattern="/pages/c.html" access="hasRole('ROLE_ADMIN')"/>
+
+        <!--拥有ROLE_ADMIN角色就可以访问d.html页面-,
+            注意，此处虽然写的是ADMIN角色，框架会自动加上前缀ROLE_-->
+        <security:intercept-url pattern="/pages/d.html" access="hasRole('ADMIN')"/>
+
         <security:intercept-url pattern="/**" access="hasRole('ROLE_ADMIN')"></security:intercept-url>
         <!--<security:intercept-url pattern="/**" access="ROLE_ADMIN"></security:intercept-url>-->
         <!-- 如果我们要使用自己指定的页面作为登录页面，必须配置登录表单.页面提交的登录表单请求是由框架负责处理-->
@@ -59,7 +72,7 @@
     <!--配置认证管理器-->
     <security:authentication-manager>
         <!--配置认证提供者-->
-        <security:authentication-provider user-service-ref="userService">
+        <security:authentication-provider user-service-ref="userService2">
             <!--
                     配置一个具体的用户，后期需要从数据库查询用户
 
@@ -67,8 +80,16 @@
                 <security:user name="admin" password="{noop}1234" authorities="ROLE_ADMIN"/>
             </security:user-service>
             -->
+            <!--指定密码进行加密的对象-->
+            <security:password-encoder ref="passwordEncoder"></security:password-encoder>
         </security:authentication-provider>
     </security:authentication-manager>
 
     <bean id="userService" class="com.itheima.service.SpringSecurityUserService"></bean>
+    <bean id="userService2" class="com.itheima.service.SpringSecurityUserService2"></bean>
+    <!--配置密码加密对象-->
+    <bean id="passwordEncoder"
+          class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+    <!--开启spring注解使用-->
+    <context:annotation-config></context:annotation-config>
 </beans>
