@@ -47,6 +47,6 @@ public class SpringSecurityUserService implements UserDetailsService {
         org.springframework.security.core.userdetails.User securityUser =
                 new org.springframework.security.core.userdetails.User(username, user.getPassword(),list);
 
-        return null;
+        return securityUser;
     }
 }
