@@ -31,7 +31,7 @@
         <div class="card">
             <div class="project-img">
                 <#--<img src="http://riumnhpxn.hd-bkt.clouddn.com/${setmeal.img}" width="100%" height="100%" />-->
-                <img src="http://rl35dddkv.hd-bkt.clouddn.com/${setmeal.img}" width="100%" height="100%" />
+                <img src="http://rmqev5ua2.hd-bkt.clouddn.com/${setmeal.img}" width="100%" height="100%" />
             </div>
             <div class="project-text">
                 <h4 class="tit">${setmeal.name}</h4>
