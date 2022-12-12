@@ -245,6 +245,8 @@
                                     //执行失败
                                     this.$message.error(res.data.message);
                                 }
+                            }).catch((r)=>{
+                                this.showMessage(r); //权限不足
                             }).finally(()=>{
                                 //不管还是失败，都调用分页查询方法
                                 this.dialogFormVisible4Edit = false;
@@ -279,6 +281,8 @@
                                     //弹出提示
                                     this.$message.error(res.data.message);
                                 }
+                            }).catch((r)=>{
+                                this.showMessage(r);
                             });
                         }else {
                             //校验不通过
@@ -303,6 +307,8 @@
                         //解析Controller响应回的数据，为模型数据赋值
                         this.pagination.total =res.data.total;
                         this.dataList = res.data.rows;
+                    }).catch((r)=>{
+                        this.showMessage(r);
                     })
                 },
                 // 重置表单

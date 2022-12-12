@@ -24,6 +24,7 @@ public class CheckItemController {
     @Reference //查找服务
     private CheckItemService checkItemService;
     //新增检查项
+    @PreAuthorize("hasAnyAuthority('CHECKITEM_ADD')")
     @RequestMapping("/add")
     public Result add(@RequestBody CheckItem checkItem){
         try {
@@ -58,6 +59,7 @@ public class CheckItemController {
     }
 
     //编辑检查项
+    @PreAuthorize("hasAnyAuthority('CHECKITEM_EDIT')")
     @RequestMapping("/edit")
     public Result edit(@RequestBody CheckItem checkItem){
         try {
