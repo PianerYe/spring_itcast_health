@@ -10,6 +10,7 @@ import com.itheima.pojo.Setmeal;
 import com.itheima.service.SetmealService;
 import com.itheima.utils.QiniuUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,6 +61,7 @@ public class SetmealController {
     }
 
     //新增套餐
+    @PreAuthorize("hasAnyAuthority('SETMEAL_ADD')")
     @RequestMapping("/add")
     public Result add(@RequestBody Setmeal setmeal, Integer[] checkgroupIds){
         try {
@@ -101,6 +103,7 @@ public class SetmealController {
         }
     }
 
+    @PreAuthorize("hasAnyAuthority('SETMEAL_EDIT')")
     @RequestMapping("/edit")
     public Result edit(@RequestBody Setmeal setmeal,Integer[] checkgroupIds){
         try {
@@ -111,6 +114,8 @@ public class SetmealController {
         }
         return new Result(true,MessageConstant.EDIT_SETMEAL_SUCCESS);//新增成功
     }
+
+    @PreAuthorize("hasAnyAuthority('SETMEAL_DELETE')")
     @RequestMapping("/delete")
     public Result delete(Integer id){
         try {
