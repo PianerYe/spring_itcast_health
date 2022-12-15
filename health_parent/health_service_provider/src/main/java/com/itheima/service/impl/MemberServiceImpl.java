@@ -46,10 +46,9 @@ public class MemberServiceImpl implements MemberService {
     public List<Integer> findMemberCountByMonths(List<String> months) throws Exception {
         List<Integer> memberCount = new ArrayList<>();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
-        SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy.MM");
         for (String month : months){
             String date = month;
-            Date parse = dateFormat1.parse(month);
+            Date parse = dateFormat.parse(month+".1");
             Calendar time = Calendar.getInstance();
             time.setTime(parse);
             time.add(Calendar.MONTH,1);
