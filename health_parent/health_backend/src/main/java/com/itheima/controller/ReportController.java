@@ -22,7 +22,7 @@ public class ReportController {
 
     //会员数量折线图数据
     @RequestMapping("/getMemberReport")
-    public Result getMemberReport(){
+    public Result getMemberReport() throws Exception {
         Map<String,Object> map = new HashMap<>();
         List<String> months = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();//获得日历对象。模拟时间就是当前时间
@@ -31,7 +31,7 @@ public class ReportController {
         for (int i=0;i<12;i++){
             calendar.add(Calendar.MONDAY,1);//获得当前时间往后推一个月
             Date date = calendar.getTime();
-            months.add(new SimpleDateFormat("yyyy,MM").format(date));
+            months.add(new SimpleDateFormat("yyyy.MM").format(date));
         }
         map.put("months",months);
 

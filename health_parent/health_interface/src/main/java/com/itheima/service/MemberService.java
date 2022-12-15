@@ -10,5 +10,5 @@ public interface MemberService {
 
     public void add(Member member);
 
-    public List<Integer> findMemberCountByMonths(List<String> months);
+    public List<Integer> findMemberCountByMonths(List<String> months) throws Exception;
 }
