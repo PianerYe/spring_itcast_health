@@ -8,6 +8,9 @@ import com.itheima.utils.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 会员服务
  * */
@@ -33,5 +36,18 @@ public class MemberServiceImpl implements MemberService {
             member.setPassword(password);
         }
         memberDao.add(member);
+    }
+
+    //根据月份查询会员数量
+    @Override
+    public List<Integer> findMemberCountByMonths(List<String> months) {
+        List<Integer> memberCount = new ArrayList<>();
+        for (String month : months){
+            String date = month + ".31";//2022.05.31
+            Integer count = memberDao.findMemberCountBeforeDate(date);
+            memberCount.add(count);
+
+        }
+        return memberCount;
     }
 }
