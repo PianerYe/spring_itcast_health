@@ -28,4 +28,5 @@ public interface SetmealDao {
 
     public Setmeal findByIdOfDetails(Integer id);
 
+    public List<Map<String, Object>> findSetmealCount();
 }
