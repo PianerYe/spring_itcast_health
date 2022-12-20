@@ -79,7 +79,6 @@ public class ReportController {
     public Result getBusinessReportData(){
         try {
             Map<String,Object> data = reportService.getBusinessReportData();
-
             return new Result(true,MessageConstant.GET_SETMEAL_COUNT_REPORT_SUCCESS,data);
         }catch (Exception e){
             e.printStackTrace();

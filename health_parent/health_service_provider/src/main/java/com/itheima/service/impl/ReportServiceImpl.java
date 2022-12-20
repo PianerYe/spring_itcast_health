@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 /**
  * 运营数据统计服务
@@ -25,7 +26,6 @@ public class ReportServiceImpl implements ReportService {
     @Override
     //查询运营数据
     public Map<String, Object> getBusinessReportData() throws Exception {
-        Map<String,Object> map = new HashMap<>();
         //报表日期
         String today = DateUtils.parseDate2String(DateUtils.getToday());
         //获取本周一日期
@@ -54,19 +54,23 @@ public class ReportServiceImpl implements ReportService {
         //本月到诊数
         Integer thisMonthVisitsNumber = orderDao.findVisitsCountAfterDate(firstDay4ThisMonth);
 
-        //日期
-        map.put("reportDate",today);
-        map.put("todayNewMember",todayNewMember);
-        map.put("totalMember",totalMember);
-        map.put("thisWeekNewMember",thisWeekNewMember);
-        map.put("thisMonthNewMember",thisMonthNewMember);
-        map.put("todayOrderNumber",todayOrderNumber);
-        map.put("toderVisitsNumber",toderVisitsNumber);
-        map.put("thisWeekOrderNumber",thisWeekOrderNumber);
-        map.put("thisWeekVisitsNumber",thisWeekVisitsNumber);
-        map.put("thisMonthOrderNumber",thisMonthOrderNumber);
-        map.put("thisMonthVisitsNumber",thisMonthVisitsNumber);
+        //热门套餐查询
+        List<Map> hotSetmeal = orderDao.findHotSetmeal();
 
-        return map;
+        Map<String,Object> result = new HashMap<>();
+        //日期
+        result.put("reportDate",today);
+        result.put("todayNewMember",todayNewMember);
+        result.put("totalMember",totalMember);
+        result.put("thisWeekNewMember",thisWeekNewMember);
+        result.put("thisMonthNewMember",thisMonthNewMember);
+        result.put("todayOrderNumber",todayOrderNumber);
+        result.put("toderVisitsNumber",toderVisitsNumber);
+        result.put("thisWeekOrderNumber",thisWeekOrderNumber);
+        result.put("thisWeekVisitsNumber",thisWeekVisitsNumber);
+        result.put("thisMonthOrderNumber",thisMonthOrderNumber);
+        result.put("thisMonthVisitsNumber",thisMonthVisitsNumber);
+        result.put("hotSetmeal",hotSetmeal);
+        return result;
     }
 }
