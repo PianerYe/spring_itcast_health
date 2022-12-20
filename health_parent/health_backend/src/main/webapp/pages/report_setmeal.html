@@ -51,14 +51,14 @@
                                         trigger: 'item',//触发类型，在饼形图中为item
                                         formatter: "{a} <br/>{b} : {c} ({d}%)"//提示内容格式
                                     },
-                                    legend: {//图例
+                                    legend: {
                                         orient: 'vertical',
-                                        left: 'left',
+                                        left: 'left'
                                     },
-                                    series : [//数据系列
+                                    series : [
                                         {
                                             name: '套餐预约占比',
-                                            type: 'pie',//饼形图
+                                            type: 'pie',
                                             radius : '55%',
                                             center: ['50%', '60%'],
                                             data:res.data.data.setmealCount,

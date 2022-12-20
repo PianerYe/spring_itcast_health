@@ -52,20 +52,21 @@ public class ReportController {
 //        setmealNames.add("体检套餐");
 //        setmealNames.add("孕前检查套餐");
 //        data.put("setmealNames",setmealNames);
-        List<Map<String,Object>> setmealCount = new ArrayList();
-        Map map1 = new HashMap<>();
-        map1.put("value","200");
-        map1.put("name","体检套餐");
+        try {
+            List<Map<String,Object>> setmealCount = setmealService.findSetmealCount();
+            data.put("setmealCount",setmealCount);
+            /*List<String> setmealNames = new ArrayList<>();
+            for (Map<String,Object> map: setmealCount) {
+                String name = (String) map.get("name");//套餐名称
+                setmealNames.add(name);
+            }
+            data.put("setmealNames",setmealNames);*/
+            return new Result(true,MessageConstant.GET_SETMEAL_COUNT_REPORT_SUCCESS,data);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new Result(false,MessageConstant.GET_SETMEAL_COUNT_REPORT_FAIL);
+        }
 
-        Map map2 = new HashMap<>();
-        map2.put("value","300");
-        map2.put("name","孕前检查套餐");
-
-        setmealCount.add(map1);
-        setmealCount.add(map2);
-
-        data.put("setmealCount",setmealCount);
-        return new Result(true,MessageConstant.GET_SETMEAL_LIST_SUCCESS,data);
     }
 
 
