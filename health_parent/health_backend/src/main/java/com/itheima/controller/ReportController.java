@@ -69,5 +69,63 @@ public class ReportController {
 
     }
 
+    /**
+     * 获取运营数据统计
+     * */
+    @RequestMapping("/getBusinessReportData")
+    public Result getBusinessReportData(){
+        try {
+            /**
+             *                     reportDate:null,
+             *                     todayNewMember :0,
+             *                     totalMember :0,
+             *                     thisWeekNewMember :0,
+             *                     thisMonthNewMember :0,
+             *                     todayOrderNumber :0,
+             *                     todayVisitsNumber :0,
+             *                     thisWeekOrderNumber :0,
+             *                     thisWeekVisitsNumber :0,
+             *                     thisMonthOrderNumber :0,
+             *                     thisMonthVisitsNumber :0,
+             *                     hotSetmeal :[
+             *                         {name:'阳光爸妈升级肿瘤12项筛查（男女单人）体检套餐',setmeal_count:200,proportion:0.222},
+             *                         {name:'阳光爸妈升级肿瘤12项筛查体检套餐',setmeal_count:200,proportion:0.222}
+             *                     ]
+             *
+             * */
+            //使用模拟数据测试流程是否可以正常展示
+            Map<String,Object> data = new HashMap<>();
+            data.put("reportDate",100);
+            data.put("todayNewMember",20000);
+            data.put("totalMember",300);
+            data.put("thisWeekNewMember",500);
+            data.put("todayOrderNumber",150);
+            data.put("todayVisitsNumber",100);
+            data.put("thisWeekOrderNumber",300);
+            data.put("thisWeekVisitsNumber",280);
+            data.put("thisMonthOrderNumber",600);
+            List<Map<String,Object>> hotSetmeal = new ArrayList<>();
+            Map<String,Object> map1 = new HashMap<>();
+            map1.put("name","阳光爸妈升级肿瘤12项筛查（男女单人）体检套餐");
+            map1.put("setmeal_count",300);
+            map1.put("proportion",0.5);
+
+            Map<String,Object> map2 = new HashMap<>();
+            map2.put("name","阳光爸妈升级肿瘤12项筛查体检套餐");
+            map2.put("setmeal_count",100);
+            map2.put("proportion",0.2);
+
+            hotSetmeal.add(map1);
+            hotSetmeal.add(map2);
+
+            data.put("hotSetmeal",hotSetmeal);
+
+            return new Result(true,MessageConstant.GET_SETMEAL_COUNT_REPORT_SUCCESS,data);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new Result(false,MessageConstant.GET_BUSINESS_REPORT_FAIL);
+        }
+    }
+
 
 }
