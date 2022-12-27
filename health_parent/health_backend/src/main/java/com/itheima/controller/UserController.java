@@ -26,7 +26,6 @@ public class UserController {
         }
         return new Result(false,MessageConstant.GET_USERNAME_FAIL);
 
-
     }
 
 }

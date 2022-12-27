@@ -1,5 +1,6 @@
 package com.itheima.test;
 
+import com.mysql.cj.jdbc.Driver;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.junit.Test;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.sql.*;
 
 public class JasperReportsTest {
     @Test
@@ -45,4 +47,32 @@ public class JasperReportsTest {
         JasperExportManager.exportReportToPdfFile(jasperPrint,pdfPath);
     }
 
+    @Test
+    public void test2() throws Exception {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/health",
+                "root",
+                "123456");
+
+        String jrxmlPath = "D:\\springproject\\health_parent\\jasperReportsDemo\\src\\main\\resources\\demo1.jrxml";
+        String jasperPath = "D:\\springproject\\health_parent\\jasperReportsDemo\\src\\main\\resources\\demo1.jasper";
+
+        //编译模板
+        JasperCompileManager.compileReportToFile(jrxmlPath,jasperPath);
+
+        //构造数据
+        Map map = new HashMap<>();
+        map.put("company","传智播客");
+
+        //填充数据-使用jdbc数据源方式填充
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperPath,
+                map,connection);
+
+        //输出文件
+        String pdfPath = "D:\\test.pdf";
+        JasperExportManager.exportReportToPdfFile(jasperPrint
+        ,pdfPath);
+
+
+    }
 }
